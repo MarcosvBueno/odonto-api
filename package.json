@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/infrastructure/http/server.ts"
   },
+  "prisma": {
+    "schema": "./src/infrastructure/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -45,4 +48,3 @@
     "typescript-eslint": "^8.29.1"
   }
 }
-
