@@ -4,8 +4,9 @@ import { Router } from 'express'
 const healthUnitRoutes = Router()
 const healthUnitController = makeHealthUnitController()
 
-healthUnitRoutes.post('/register', (req, res, next) => {
-  healthUnitController.create(req, res, next)
-})
+healthUnitRoutes.post(
+  '/register',
+  healthUnitController.create.bind(healthUnitController),
+)
 
 export default healthUnitRoutes

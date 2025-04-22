@@ -4,8 +4,6 @@ import { Router } from 'express'
 const UserRoutes = Router()
 const userController = makeUserController()
 
-UserRoutes.post('/auth', (req, res, next) => {
-  userController.login(req, res, next)
-})
+UserRoutes.post('/auth', userController.login.bind(userController))
 
 export default UserRoutes
