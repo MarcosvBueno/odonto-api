@@ -11,6 +11,6 @@ export class FindCompanyByIdUseCase {
       throw new AppError('Company not found', 404)
     }
 
-    return company
+    return { company }
   }
 }

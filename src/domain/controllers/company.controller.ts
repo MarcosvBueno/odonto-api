@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from 'express'
 import { CreateCompanyUseCase } from '../use-case/company/createCompanyUseCase'
 import { FindCompanyByIdUseCase } from '../use-case/company/findCompanyByIdUseCase'
 
@@ -7,7 +8,7 @@ export default class CompanyController {
     private findCompanyByIdUseCase: FindCompanyByIdUseCase,
   ) {}
 
-  async create(req: any, res: any, next: any) {
+  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { adminUserData, companyData } = req.body
     const { name: adminName, password, email } = adminUserData
     const { name: companyName, cnpj } = companyData
@@ -31,7 +32,11 @@ export default class CompanyController {
     }
   }
 
-  async findCompanyById(req: any, res: any, next: any) {
+  async findCompanyById(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const { id } = req.params
 
     try {

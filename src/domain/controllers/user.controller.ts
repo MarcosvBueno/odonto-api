@@ -27,7 +27,7 @@ export default class UserController {
     }
   }
 
-  async login(req: Request, res: Response, next: NextFunction) {
+  async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { email, password } = req.body
 
     if (!email) {
@@ -49,7 +49,7 @@ export default class UserController {
         },
       )
 
-      return res.status(200).json({ user, token })
+      res.status(200).json({ user, token })
     } catch (error) {
       next(error)
     }
