@@ -7,6 +7,7 @@ const envSchema = z.object({
     .default('development'),
   PORT: z.string().default('3000'),
   API_URL: z.string().default('http://localhost:3000'),
+  JWT_SECRET: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
