@@ -1,12 +1,21 @@
 import UserController from '../../../../domain/controllers/user.controller'
 import { UserRepository } from '../../../../domain/repositories/user/userRepository'
 import { CreateUserUseCase } from '../createUserUseCase'
+import { FindAllUsersUseCase } from '../findAllUsersUseCase'
+import { FindByIdUserUseCase } from '../findByIdUserUseCase'
 import { LoginUserUseCase } from '../loginUserUseCase'
 
 export const makeUserController = (): UserController => {
   const userRepository = new UserRepository()
   const createUserUseCase = new CreateUserUseCase(userRepository)
   const loginUserUseCase = new LoginUserUseCase(userRepository)
+  const findAllUsersUseCase = new FindAllUsersUseCase(userRepository)
+  const findByIdUserUseCase = new FindByIdUserUseCase(userRepository)
 
-  return new UserController(createUserUseCase, loginUserUseCase)
+  return new UserController(
+    createUserUseCase,
+    loginUserUseCase,
+    findAllUsersUseCase,
+    findByIdUserUseCase,
+  )
 }
