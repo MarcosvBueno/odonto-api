@@ -4,3 +4,9 @@ export interface Tuser {
   password: string
   role?: string
 }
+
+export interface TuserUpdate {
+  name: string
+  email: string
+  password: string
+}
