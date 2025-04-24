@@ -17,5 +17,10 @@ UserRoutes.put(
   verifyJwt(),
   userController.update.bind(userController),
 )
+UserRoutes.delete(
+  '/user/delete/:id',
+  verifyJwt(),
+  userController.delete.bind(userController),
+)
 
 export default UserRoutes

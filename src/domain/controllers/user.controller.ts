@@ -6,6 +6,7 @@ import { LoginUserUseCase } from '../use-case/user/loginUserUseCase'
 import { FindAllUsersUseCase } from '../use-case/user/findAllUsersUseCase'
 import { FindByIdUserUseCase } from '../use-case/user/findByIdUserUseCase'
 import { UpdateUserUseCase } from '../use-case/user/updateUserUseCase'
+import { DeleteUserUseCase } from '../use-case/user/deleteUserUseCase'
 
 export default class UserController {
   constructor(
@@ -14,6 +15,7 @@ export default class UserController {
     private findAllUsersUseCase: FindAllUsersUseCase,
     private findByIdUserUseCase: FindByIdUserUseCase,
     private updateUserUseCase: UpdateUserUseCase,
+    private deleteUserUseCase: DeleteUserUseCase,
   ) {}
 
   async create(req: Request, res: Response, next: NextFunction) {
@@ -114,6 +116,21 @@ export default class UserController {
       })
 
       res.status(200).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { id } = req.params
+
+    if (!id) {
+      throw new AppError('id is required', 400)
+    }
+
+    try {
+      await this.deleteUserUseCase.execute(id)
+      res.status(204).send()
     } catch (error) {
       next(error)
     }
