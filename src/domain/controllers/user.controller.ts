@@ -5,6 +5,7 @@ import Jwt from 'jsonwebtoken'
 import { LoginUserUseCase } from '../use-case/user/loginUserUseCase'
 import { FindAllUsersUseCase } from '../use-case/user/findAllUsersUseCase'
 import { FindByIdUserUseCase } from '../use-case/user/findByIdUserUseCase'
+import { UpdateUserUseCase } from '../use-case/user/updateUserUseCase'
 
 export default class UserController {
   constructor(
@@ -12,6 +13,7 @@ export default class UserController {
     private loginUserUseCase: LoginUserUseCase,
     private findAllUsersUseCase: FindAllUsersUseCase,
     private findByIdUserUseCase: FindByIdUserUseCase,
+    private updateUserUseCase: UpdateUserUseCase,
   ) {}
 
   async create(req: Request, res: Response, next: NextFunction) {
@@ -80,6 +82,37 @@ export default class UserController {
       if (!user) {
         throw new AppError('User not found', 404)
       }
+      res.status(200).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async update(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params
+    const { name, email, password } = req.body
+
+    if (!id) {
+      throw new AppError('id is required', 400)
+    }
+    if (!name) {
+      throw new AppError('name is required', 400)
+    }
+    if (!email) {
+      throw new AppError('email is required', 400)
+    }
+
+    if (!password) {
+      throw new AppError('password is required', 400)
+    }
+
+    try {
+      const user = await this.updateUserUseCase.execute(id, {
+        name,
+        email,
+        password,
+      })
+
       res.status(200).json(user)
     } catch (error) {
       next(error)

@@ -2,6 +2,7 @@ import { User } from '@prisma/client'
 import { UserRepositoryInterface } from './userRepository.Interface'
 
 import prisma from '../../../infrastructure/prisma/prisma'
+import { TuserUpdate } from '@/domain/types/user'
 
 export class UserRepository implements UserRepositoryInterface {
   async findByEmail(email: string): Promise<User | null> {
@@ -36,7 +37,7 @@ export class UserRepository implements UserRepositoryInterface {
     return prisma.user.findMany()
   }
 
-  async update(id: string, data: User): Promise<User | null> {
+  async update(id: string, data: TuserUpdate): Promise<User> {
     return prisma.user.update({
       where: { id },
       data,

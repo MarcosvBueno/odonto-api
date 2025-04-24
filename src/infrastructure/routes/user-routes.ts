@@ -12,5 +12,10 @@ UserRoutes.get(
   userController.findAll.bind(userController),
 )
 UserRoutes.get('/user/:id', userController.findById.bind(userController))
+UserRoutes.put(
+  '/user/update/:id',
+  verifyJwt(),
+  userController.update.bind(userController),
+)
 
 export default UserRoutes

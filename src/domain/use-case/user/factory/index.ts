@@ -4,6 +4,7 @@ import { CreateUserUseCase } from '../createUserUseCase'
 import { FindAllUsersUseCase } from '../findAllUsersUseCase'
 import { FindByIdUserUseCase } from '../findByIdUserUseCase'
 import { LoginUserUseCase } from '../loginUserUseCase'
+import { UpdateUserUseCase } from '../updateUserUseCase'
 
 export const makeUserController = (): UserController => {
   const userRepository = new UserRepository()
@@ -11,11 +12,13 @@ export const makeUserController = (): UserController => {
   const loginUserUseCase = new LoginUserUseCase(userRepository)
   const findAllUsersUseCase = new FindAllUsersUseCase(userRepository)
   const findByIdUserUseCase = new FindByIdUserUseCase(userRepository)
+  const updateUserUseCase = new UpdateUserUseCase(userRepository)
 
   return new UserController(
     createUserUseCase,
     loginUserUseCase,
     findAllUsersUseCase,
     findByIdUserUseCase,
+    updateUserUseCase,
   )
 }
