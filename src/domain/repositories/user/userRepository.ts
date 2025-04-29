@@ -23,7 +23,16 @@ export class UserRepository implements UserRepositoryInterface {
       where: { id },
       include: {
         healthUnit: true,
-        company: true,
+        company: {
+          include: {
+            healthUnits: {
+              include: {
+                equipment: true,
+                reports: true,
+              },
+            },
+          },
+        },
       },
     })
   }
