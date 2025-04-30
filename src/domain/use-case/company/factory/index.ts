@@ -5,6 +5,7 @@ import CompanyController from '../../../controllers/company.controller'
 import { CompanyRepository } from '../../../repositories/company/companyRepository'
 import { CreateCompanyUseCase } from '../createCompanyUseCase'
 import { FindCompanyByIdUseCase } from '../findCompanyByIdUseCase'
+import { GetHealthUnitsByCompanyUseCase } from '../getHealthUnitsByCompanyUseCase'
 
 export const makeComapanyController = (): CompanyController => {
   const userRepository = new UserRepository()
@@ -16,6 +17,13 @@ export const makeComapanyController = (): CompanyController => {
     userRepository,
   )
   const findCompanyByIdUseCase = new FindCompanyByIdUseCase(companyRepository)
+  const getHealthUnitsByCompanyUseCase = new GetHealthUnitsByCompanyUseCase(
+    companyRepository,
+  )
 
-  return new CompanyController(createCompanyUseCase, findCompanyByIdUseCase)
+  return new CompanyController(
+    createCompanyUseCase,
+    findCompanyByIdUseCase,
+    getHealthUnitsByCompanyUseCase,
+  )
 }

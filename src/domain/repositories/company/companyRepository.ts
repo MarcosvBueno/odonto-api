@@ -1,5 +1,5 @@
 import { CompanyRepositoryInterface } from './companyRepository.interface'
-import { Company } from '@prisma/client'
+import { Company, HealthUnit } from '@prisma/client'
 import prisma from '../../../infrastructure/prisma/prisma'
 
 export class CompanyRepository implements CompanyRepositoryInterface {
@@ -43,10 +43,43 @@ export class CompanyRepository implements CompanyRepositoryInterface {
         healthUnits: {
           include: {
             reports: true,
-            equipment: true, // Inclui os reports de cada posto
+            equipment: true,
           },
         },
       },
+    })
+  }
+
+  async findHealthUnitsByCompanyId(
+    companyId: string,
+    pagination?: { page: number; limit: number },
+    filters?: { isVerified?: boolean },
+  ): Promise<HealthUnit[]> {
+    return await prisma.healthUnit.findMany({
+      where: {
+        companyId,
+        ...(filters?.isVerified !== undefined && {
+          isVerified: filters.isVerified,
+        }),
+      },
+      include: {
+        user: {
+          omit: {
+            password: true,
+          },
+        },
+        equipment: true,
+        reports: true,
+        _count: {
+          select: {
+            equipment: true,
+            reports: true,
+          },
+        },
+      },
+      skip: ((pagination?.page ?? 1) - 1) * (pagination?.limit ?? 10),
+      take: pagination?.limit,
+      orderBy: { createdAt: 'desc' },
     })
   }
 

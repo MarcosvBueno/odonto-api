@@ -17,4 +17,10 @@ companyRoutes.get(
   companyController.findCompanyById.bind(companyController),
 )
 
+companyRoutes.get(
+  '/:id/health-units',
+  verifyJwt({ requiredRole: 'COMPANY_ADMIN' }),
+  companyController.findHealthUnitsByCompanyId.bind(companyController),
+)
+
 export default companyRoutes
