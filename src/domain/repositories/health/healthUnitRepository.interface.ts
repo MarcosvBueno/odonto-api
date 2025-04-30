@@ -9,5 +9,9 @@ export interface HealthUnitRepositoryInterface
   findByName(name: string): Promise<HealthUnit | null>
   findAll(): Promise<HealthUnit[]>
   update(id: string, data: ThealthUnit): Promise<HealthUnit | null>
+  verifyHealthUnit(
+    id: string,
+    data: { isVerified: boolean },
+  ): Promise<HealthUnit | null>
   delete(id: string): Promise<void>
 }

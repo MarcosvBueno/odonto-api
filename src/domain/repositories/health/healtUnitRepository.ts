@@ -32,6 +32,15 @@ export class HealthUnitRepository implements HealthUnitRepositoryInterface {
       data,
     })
   }
+  verifyHealthUnit(
+    id: string,
+    data: { isVerified: boolean },
+  ): Promise<HealthUnit | null> {
+    return prisma.healthUnit.update({
+      where: { id },
+      data,
+    })
+  }
 
   async delete(id: string): Promise<void> {
     await prisma.healthUnit.delete({

@@ -10,13 +10,13 @@ export class LoginUserUseCase {
     const user = await this.userRepository.findByEmail(email)
 
     if (!user) {
-      throw new Error('User not found')
+      throw new AppError('User not found', 404)
     }
 
     const checkPassword = await bcrypt.compare(password, user.password)
 
     if (!checkPassword) {
-      throw new AppError('Invalid password')
+      throw new AppError('Invalid password', 400)
     }
 
     return sanitizeUser(user)

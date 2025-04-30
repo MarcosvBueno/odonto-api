@@ -15,6 +15,5 @@ export interface CompanyRepositoryInterface extends GlobalRepository<Company> {
     filters?: { isVerified?: boolean },
   ): Promise<HealthUnit[]>
   update(id: string, data: Company): Promise<Company | null>
-  updateHealthUnitVerification(id: string): Promise<Company | null>
   delete(id: string): Promise<void>
 }

@@ -4,6 +4,7 @@ import { CreateHealthUnitUseCase } from '../../../use-case/healthUnit/createHeal
 import { UserRepository } from '../../../repositories/user/userRepository'
 import { CreateUserUseCase } from '../../../use-case/user/createUserUseCase'
 import HealthUnitController from '../../../controllers/healthUnit.controller'
+import { VerifyHealthUnitUseCase } from '../verifyHealthUnitUseCase'
 
 export const makeHealthUnitController = (): HealthUnitController => {
   const userRepository = new UserRepository()
@@ -14,6 +15,11 @@ export const makeHealthUnitController = (): HealthUnitController => {
     createUserUseCase,
     userRepository,
   )
-
-  return new HealthUnitController(createHealthUnitUseCase)
+  const verifyHealthUnitUseCase = new VerifyHealthUnitUseCase(
+    healthUnitRepository,
+  )
+  return new HealthUnitController(
+    createHealthUnitUseCase,
+    verifyHealthUnitUseCase,
+  )
 }

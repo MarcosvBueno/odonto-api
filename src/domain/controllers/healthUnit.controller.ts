@@ -1,9 +1,13 @@
 import { Response, Request, NextFunction } from 'express'
 import { CreateHealthUnitUseCase } from '../use-case/healthUnit/createHealthUnitUseCase'
 import { Tuser } from '../types/user'
+import { VerifyHealthUnitUseCase } from '../use-case/healthUnit/verifyHealthUnitUseCase'
 
 export default class HealthUnitController {
-  constructor(private createHealthUnitUseCase: CreateHealthUnitUseCase) {}
+  constructor(
+    private createHealthUnitUseCase: CreateHealthUnitUseCase,
+    private verifyHealthUnitUseCase: VerifyHealthUnitUseCase,
+  ) {}
 
   async create(req: Request, res: Response, next: NextFunction) {
     const { userData, healthUnitData, companyCode } = req.body
@@ -39,6 +43,17 @@ export default class HealthUnitController {
         companyCode,
       })
       res.status(201).json(healtUnit)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async verifyHealthUnit(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params
+
+    try {
+      const updatedHealthUnit = await this.verifyHealthUnitUseCase.execute(id)
+      res.json(updatedHealthUnit)
     } catch (error) {
       next(error)
     }
