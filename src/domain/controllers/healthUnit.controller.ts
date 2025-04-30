@@ -53,7 +53,7 @@ export default class HealthUnitController {
 
     try {
       const updatedHealthUnit = await this.verifyHealthUnitUseCase.execute(id)
-      res.json(updatedHealthUnit)
+      res.json({ isVerified: updatedHealthUnit?.isVerified })
     } catch (error) {
       next(error)
     }
