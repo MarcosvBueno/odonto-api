@@ -20,6 +20,7 @@ export default class HealthUnitController {
       city,
       state,
       zipCode,
+      equipment: [{ name: equipmentName, model, serialNumber }],
     } = healthUnitData
 
     try {
@@ -38,6 +39,13 @@ export default class HealthUnitController {
           state,
           zipCode,
           isVerified: false,
+          equipment: [
+            {
+              name: equipmentName,
+              model,
+              serialNumber,
+            },
+          ],
           userId: '',
         },
         companyCode,
