@@ -3,6 +3,7 @@ import { ReportController } from '../../../controllers/report.controller'
 import { CreateReportUseCase } from '../createReportUseCase'
 import { HealthUnitRepository } from '../../../repositories/health/healtUnitRepository'
 import { CompanyRepository } from '../../../repositories/company/companyRepository'
+import { FindReportByIdUseCase } from '../findReportById'
 
 export const makeReportController = (): ReportController => {
   const reportRepository = new ReportRepository()
@@ -13,5 +14,6 @@ export const makeReportController = (): ReportController => {
     healtUnitRepository,
     companyRepository,
   )
-  return new ReportController(createReportUseCase)
+  const findReportByIdUseCase = new FindReportByIdUseCase(reportRepository)
+  return new ReportController(createReportUseCase, findReportByIdUseCase)
 }

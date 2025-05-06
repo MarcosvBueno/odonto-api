@@ -12,4 +12,10 @@ reportRoutes.post(
   reportController.create.bind(reportController),
 )
 
+reportRoutes.get(
+  '/find-report/:id',
+  verifyJwt(),
+  reportController.findById.bind(reportController),
+)
+
 export default reportRoutes
