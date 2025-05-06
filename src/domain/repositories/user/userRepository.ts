@@ -22,7 +22,12 @@ export class UserRepository implements UserRepositoryInterface {
     return prisma.user.findUnique({
       where: { id },
       include: {
-        healthUnit: true,
+        healthUnit: {
+          include: {
+            equipment: true,
+            reports: true,
+          },
+        },
         company: {
           include: {
             healthUnits: {
