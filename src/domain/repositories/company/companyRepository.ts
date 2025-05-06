@@ -22,14 +22,6 @@ export class CompanyRepository implements CompanyRepositoryInterface {
     })
   }
 
-  async findByRegistrationCode(
-    registrationCode: string,
-  ): Promise<Company | null> {
-    return await prisma.company.findUnique({
-      where: { registrationCode },
-    })
-  }
-
   async findByCnpj(cnpj: string): Promise<Company | null> {
     return await prisma.company.findUnique({
       where: { cnpj },

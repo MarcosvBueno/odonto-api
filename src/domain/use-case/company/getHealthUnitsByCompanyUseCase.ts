@@ -1,7 +1,6 @@
 import AppError from '../../error/appError'
 import { CompanyRepositoryInterface } from '../../../domain/repositories/company/companyRepository.interface'
 
-// src/domain/use-cases/company/getHealthUnitsByCompany.ts
 export class GetHealthUnitsByCompanyUseCase {
   constructor(private companyRepository: CompanyRepositoryInterface) {}
 

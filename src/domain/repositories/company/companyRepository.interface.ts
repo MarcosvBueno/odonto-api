@@ -5,7 +5,6 @@ import { PrismaClient } from '@prisma/client/extension'
 
 export interface CompanyRepositoryInterface extends GlobalRepository<Company> {
   create(data: Tcompany, prismaClient?: PrismaClient): Promise<Company>
-  findByRegistrationCode(registrationCode: string): Promise<Company | null>
   findByCnpj(cnpj: string): Promise<Company | null>
   findById(id: string): Promise<Company | null>
   findAll(): Promise<Company[]>
